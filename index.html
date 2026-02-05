@@ -3,76 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neshi Rewards Center</title>
-
+    <title>Neshi Rewards</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-
     <script src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"></script>
-    
     <script>
-        // Tell Telegram the app is ready
         window.Telegram.WebApp.ready();
-
-        // Initialize your specific ID (1001227 / 6034)
         window.TelegramAdsController = new TelegramAdsController();
-        window.TelegramAdsController.initialize({
-            pubId: "1001227",
-            appId: "6034"
-        });
+        window.TelegramAdsController.initialize({ pubId: "1001227", appId: "6034" });
 
-        // PRELOAD all formats immediately for speed
-        window.TelegramAdsController.preloadInterstitial();
+        // PRELOAD: This fixes the "slow" issue by loading ads in the background
         window.TelegramAdsController.preloadVideoAd();
+        window.TelegramAdsController.preloadInterstitial();
 
-        // TRIGGER FUNCTIONS
-        function playVideo() {
-            console.log("Loading Video...");
-            window.TelegramAdsController.showVideoAd();
-        }
+        function showMyAd(type) {
+            const btn = event.target;
+            const originalText = btn.innerText;
+            btn.innerText = "⏳ Loading...";
+            btn.disabled = true;
 
-        function playGame() {
-            console.log("Loading Playable...");
-            window.TelegramAdsController.showPlayableAd();
-        }
+            if (type === 'video') window.TelegramAdsController.showVideoAd();
+            else window.TelegramAdsController.showInterstitial();
 
-        function showStandard() {
-            console.log("Loading Standard...");
-            window.TelegramAdsController.showInterstitial();
+            setTimeout(() => { btn.innerText = originalText; btn.disabled = false; }, 3000);
         }
     </script>
-
     <style>
-        body { font-family: 'Segoe UI', sans-serif; text-align: center; background-color: #f0f2f5; padding: 20px; color: #333; }
-        .container { max-width: 400px; margin: auto; background: white; padding: 20px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        .reward-box { background: #e3f2fd; padding: 15px; border-radius: 15px; margin-bottom: 20px; border: 1px solid #90caf9; }
-        .btn { display: block; width: 100%; margin: 10px 0; padding: 15px; border: none; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; color: white; }
-        
-        .btn-video { background: #ff4757; } /* Red for Video */
-        .btn-game { background: #2ed573; }  /* Green for Playable */
-        .btn-banner { background: #1e90ff; } /* Blue for Standard */
-        
-        .btn:active { transform: scale(0.96); opacity: 0.9; }
-        .footer-text { font-size: 12px; color: #888; margin-top: 20px; }
+        body { font-family: sans-serif; text-align: center; padding: 40px 20px; background: #f0f2f5; }
+        .card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .btn { display: block; width: 100%; margin: 15px 0; padding: 18px; border: none; border-radius: 12px; font-size: 16px; font-weight: bold; color: white; cursor: pointer; transition: 0.2s; }
+        .btn-video { background: #ff4757; }
+        .btn-quick { background: #1e90ff; }
+        .btn:active { transform: scale(0.96); }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <h2>🚀 Neshi Rewards</h2>
-    <div class="reward-box">
-        <strong>Your Balance:</strong> 0.00 Points
+    <div class="card">
+        <h2>🚀 Neshi Rewards</h2>
+        <p>Choose an ad to earn points:</p>
+        <button class="btn btn-video" onclick="showMyAd('video')">🎬 Watch Video (Max Pay)</button>
+        <button class="btn btn-quick" onclick="showMyAd('quick')">🖼️ Quick Ad (Faster)</button>
     </div>
-
-    <p>Complete a task to earn:</p>
-
-    <button class="btn btn-video" onclick="playVideo()">🎬 Watch Video (Max Pay)</button>
-
-    <button class="btn btn-game" onclick="playGame()">🎮 Play Demo (High Pay)</button>
-
-    <button class="btn btn-banner" onclick="showStandard()">🖼️ Show Quick Ad</button>
-
-    <p class="footer-text">Ads help us keep the app free!</p>
-</div>
-
 </body>
 </html>
+
