@@ -2,183 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Neshi Rewards Premium</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RichAds Center</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"></script>
-    
     <style>
-        :root {
-            --tg-bg: var(--tg-theme-bg-color, #0f172a);
-            --tg-secondary-bg: var(--tg-theme-secondary-bg-color, #1e293b);
-            --tg-text: var(--tg-theme-text-color, #f8fafc);
-            --tg-hint: var(--tg-theme-hint-color, #94a3b8);
-            --tg-accent: #3b82f6;
-            --gold: #fbbf24;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            background-color: var(--tg-bg);
-            color: var(--tg-text);
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        /* The Main Dashboard Card */
-        .glass-card {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 28px;
-            width: 100%;
-            max-width: 380px;
-            padding: 25px;
-            box-sizing: border-box;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
-
-        .user-badge {
-            background: var(--gold);
-            color: #000;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-            display: inline-block;
-            margin-bottom: 10px;
-        }
-
-        .balance-title { font-size: 14px; color: var(--tg-hint); text-transform: uppercase; }
-        .balance-value { font-size: 48px; font-weight: 800; margin: 5px 0; color: var(--tg-text); }
-
-        /* VIP Progress Bar */
-        .progress-container {
-            background: rgba(255,255,255,0.1);
-            height: 8px;
-            border-radius: 10px;
-            margin: 20px 0;
-            overflow: hidden;
-        }
-        .progress-fill {
-            background: linear-gradient(90deg, var(--tg-accent), #60a5fa);
-            width: 30%; /* Set to 0% for new users */
-            height: 100%;
-        }
-
-        /* Action Buttons */
-        .action-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            width: 100%;
-            max-width: 380px;
-            margin-top: 20px;
-        }
-
-        .btn-action {
-            background: var(--tg-secondary-bg);
-            border: 1px solid rgba(255,255,255,0.05);
-            padding: 20px;
-            border-radius: 20px;
-            color: var(--tg-text);
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .btn-action:active { transform: scale(0.95); background: #334155; }
-        .icon { font-size: 24px; }
-
-        /* Payment Section */
-        .payment-box {
-            margin-top: 30px;
-            background: linear-gradient(145deg, #065f46, #064e3b);
-            padding: 20px;
-            border-radius: 24px;
-            width: 100%;
-            max-width: 380px;
-            box-sizing: border-box;
-        }
-
-        .btn-pay {
-            background: #10b981;
-            color: white;
-            border: none;
-            width: 100%;
-            padding: 16px;
-            border-radius: 14px;
-            font-size: 16px;
-            font-weight: bold;
-            margin-top: 15px;
-        }
+        body { font-family: sans-serif; background: #0f172a; color: white; text-align: center; padding: 20px; }
+        .ad-box { background: #1e293b; padding: 20px; border-radius: 20px; border: 1px solid #334155; margin-bottom: 20px; }
+        .btn-earn { background: #3b82f6; color: white; border: none; padding: 15px 30px; border-radius: 12px; font-weight: bold; width: 100%; cursor: pointer; }
+        .back-link { color: #94a3b8; text-decoration: none; font-size: 14px; display: block; margin-top: 20px; }
     </style>
 </head>
 <body>
-
-    <div class="user-badge">BASIC ACCOUNT</div>
-
-    <div class="glass-card">
-        <div class="balance-title">Current Earnings</div>
-        <div class="balance-value">0.00 <span style="font-size: 18px; color: var(--tg-hint);">KES</span></div>
-        
-        <div class="progress-container">
-            <div class="progress-fill"></div>
-        </div>
-        <div style="font-size: 12px; color: var(--tg-hint);">30% to next payout</div>
+    <div class="ad-box">
+        <h2>💰 Earn KES</h2>
+        <p>Watch a video to add 5.00 KES to your balance.</p>
+        <button class="btn-earn" onclick="showVideo()">🎬 Start Video Ad</button>
     </div>
 
-    <div class="action-grid">
-        <div class="btn-action" onclick="runAd('video')">
-            <span class="icon">🎬</span>
-            <span>Video Ad</span>
-        </div>
-        <div class="btn-action" onclick="runAd('quick')">
-            <span class="icon">🖼️</span>
-            <span>Quick Ad</span>
-        </div>
-    </div>
-
-    <div class="payment-box">
-        <div style="font-weight: bold; font-size: 18px;">Unlock VIP Mode 🚀</div>
-        <p style="font-size: 13px; opacity: 0.9;">Double your earnings and get instant withdrawals for only 100 KES.</p>
-        <button class="btn-pay" onclick="openPayment()">Activate VIP Now</button>
-    </div>
+    <a href="index.html" class="back-link">← Back to Dashboard</a>
 
     <script>
-        const tg = window.Telegram.WebApp;
-        tg.ready();
-        tg.expand();
-        tg.headerColor = '#0f172a';
-
+        window.Telegram.WebApp.ready();
         const ads = new TelegramAdsController();
         ads.initialize({ pubId: "1001227", appId: "6034" });
         ads.preloadVideoAd();
 
-        function runAd(type) {
-            if (type === 'video') ads.showVideoAd();
-            else ads.showInterstitial();
-        }
-
-        function openPayment() {
-            tg.showPopup({
-                title: 'M-Pesa Payment',
-                message: 'Send 100 KES to Pochi: 0116 571374 (RichAds). After paying, send your M-Pesa code to support.',
-                buttons: [{id: 'ok', type: 'default', text: 'Open Support Chat'}]
-            }, function(id) {
-                if (id === 'ok') tg.openTelegramLink('https://t.me/your_username');
-            });
+        function showVideo() {
+            ads.showVideoAd();
         }
     </script>
 </body>
 </html>
+
 
 
