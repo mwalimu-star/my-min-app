@@ -1,52 +1,101 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electronics Status Ads</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Neshi Electronics & Rewards</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        body { font-family: sans-serif; background: #075E54; color: white; padding: 20px; }
-        .product-card { background: white; color: #333; border-radius: 15px; padding: 15px; margin-bottom: 20px; }
-        .price { color: #e11d48; font-weight: bold; font-size: 18px; }
-        .btn-copy { background: #25D366; color: white; border: none; padding: 10px; border-radius: 8px; width: 100%; margin-top: 10px; font-weight: bold; }
+        :root { --tg-bg: #0f172a; --tg-card: #1e293b; --green: #25D366; --accent: #3b82f6; --text: #ffffff; }
+        body { font-family: 'Inter', sans-serif; background: var(--tg-bg); color: var(--text); margin: 0; padding: 15px; }
+        
+        .hero { 
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1498049794561-7780e7231661?w=500');
+            background-size: cover; padding: 35px 15px; border-radius: 24px; text-align: center; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px;
+        }
+
+        /* Updated Payment Section */
+        .pay-card { 
+            background: rgba(59, 130, 246, 0.1); border: 1px solid var(--accent); border-radius: 20px; padding: 20px; margin-bottom: 20px; text-align: center;
+        }
+        .acc-box { background: #000; padding: 10px; border-radius: 10px; font-family: monospace; font-size: 18px; color: var(--accent); margin: 10px 0; border: 1px solid #334155; }
+        
+        .section-title { font-size: 18px; font-weight: bold; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+        .product-card { background: var(--tg-card); border-radius: 20px; overflow: hidden; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.05); }
+        .prod-img { width: 100%; height: 180px; object-fit: cover; }
+        .prod-info { padding: 15px; }
+        .price { color: #f87171; font-size: 19px; font-weight: bold; display: block; margin: 5px 0; }
+        
+        .btn-copy { background: var(--green); color: white; border: none; padding: 12px; border-radius: 12px; width: 100%; font-weight: bold; cursor: pointer; }
+        .btn-pay { background: var(--accent); color: white; border: none; padding: 15px; border-radius: 12px; width: 100%; font-weight: bold; cursor: pointer; font-size: 16px; box-shadow: 0 4px 15px rgba(59,130,246,0.3); }
+        .btn-submit { background: #ffffff; color: #000; border: none; padding: 16px; border-radius: 15px; width: 100%; font-weight: 800; cursor: pointer; margin-top: 10px; }
     </style>
 </head>
 <body>
 
-    <h3>📢 Earn 20 KES per Status</h3>
-    <p style="font-size: 12px; opacity: 0.8;">Post these on WhatsApp for 24 hours.</p>
+    <div class="hero">
+        <h1 style="margin:0; font-size: 26px;">Neshi Electronics</h1>
+        <p style="font-size: 14px; opacity: 0.8; margin-top: 5px;">Market Products & Earn Real Cash</p>
+    </div>
+
+    <div class="pay-card">
+        <span style="font-size: 12px; font-weight: bold; letter-spacing: 1px;">VIP ACTIVATION FEE: 100 KES</span>
+        <div class="acc-box">ACC: 1327227169</div>
+        <button class="btn-pay" onclick="window.open('https://m-pesa-link.example.com')">💳 PAY VIA M-PESA LINK</button>
+        <p style="font-size: 11px; opacity: 0.7; margin-top: 10px;">Ensure you use Account Number 1327227169</p>
+    </div>
+
+    <div class="section-title">📢 Today's Marketing Tasks</div>
 
     <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=300" style="width:100%; border-radius: 10px;">
-        <h4>Vitron 32" Smart Android TV</h4>
-        <p class="price">KSh 11,500</p>
-        <p id="t1" style="font-size: 12px;">"Get this Vitron 32-inch Smart TV at Neshi Electronics! Clear display, YouTube, Netflix. DM to order!"</p>
-        <button class="btn-copy" onclick="copy('t1')">Copy Caption</button>
+        <img src="https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=500" class="prod-img">
+        <div class="prod-info">
+            <span class="price">KSh 11,500</span>
+            <p id="cap1" style="font-size: 13px;">"Vitron 32-inch Smart Android TV! YouTube/Netflix ready. KSh 11,500 at Neshi Electronics. DM to buy!"</p>
+            <button class="btn-copy" onclick="copyText('cap1')">📋 Copy Caption</button>
+        </div>
     </div>
 
     <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=300" style="width:100%; border-radius: 10px;">
-        <h4>Samsung Galaxy A07 (2026 Edition)</h4>
-        <p class="price">KSh 12,800</p>
-        <p id="t2" style="font-size: 12px;">"Brand new Samsung A07 now in stock. Best battery life! Price: 12,800 KES only at Neshi."</p>
-        <button class="btn-copy" onclick="copy('t2')">Copy Caption</button>
+        <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500" class="prod-img">
+        <div class="prod-info">
+            <span class="price">KSh 28,500</span>
+            <p id="cap3" style="font-size: 13px;">"HP EliteBook - Core i5, 8GB RAM, 256GB SSD. Fast and slim for students & work. KSh 28,500 at Neshi!"</p>
+            <button class="btn-copy" onclick="copyText('cap3')">📋 Copy Caption</button>
+        </div>
     </div>
 
-    <button onclick="window.open('https://wa.me/254717404332')" style="width:100%; padding:15px; background:white; color:#075E54; border:none; border-radius:12px; font-weight:bold;">📤 Submit Screenshot Proof</button>
+    <div style="background: #1e293b; padding: 20px; border-radius: 20px; border: 1px solid var(--green);">
+        <h3 style="margin: 0 0 10px 0; text-align: center; color: var(--green);">Earn 20 KES Now</h3>
+        <button class="btn-submit" onclick="submitProof()">📤 SUBMIT SCREENSHOT PROOF</button>
+    </div>
+
+    <div style="text-align: center; padding: 30px; opacity: 0.5; font-size: 12px;">
+        <p onclick="window.open('https://whatsapp.com/channel/0029VaP6R3B60eBf5fD0B02v')">Join Official Channel 🔗</p>
+        <p>© 2026 Neshi Rewards • Acc: 1327227169</p>
+    </div>
 
     <script>
-        function copy(id) {
+        const tg = window.Telegram.WebApp;
+        tg.ready();
+        tg.expand();
+
+        function copyText(id) {
             const text = document.getElementById(id).innerText;
             navigator.clipboard.writeText(text);
-            alert("Caption copied! Post it with the image.");
+            tg.showPopup({
+                title: "Ready!",
+                message: "Caption copied. Post it on your Status with the image to earn.",
+                buttons: [{text: "Close", type: "close"}]
+            });
+        }
+
+        function submitProof() {
+            window.open("https://wa.me/254717404332?text=I+have+posted+the+ad.+Here+is+my+proof+for+payment.", '_blank');
         }
     </script>
 </body>
 </html>
-<button onclick="location.href='ads.html'">Watch Ads</button>
 
-<button onclick="location.href='whatsapp.html'">WhatsApp Earn</button>
-<a href="index.html">← Back to Dashboard</a>
 
 
