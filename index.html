@@ -8,33 +8,53 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
     <script src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"></script>
+    
     <script>
-        // Inform Telegram the app is ready
+        // Tell Telegram the app is ready to display
         window.Telegram.WebApp.ready();
 
+        // Initialize the Ad Controller
         window.TelegramAdsController = new TelegramAdsController();
         window.TelegramAdsController.initialize({
             pubId: "1001227",
             appId: "6034"
         });
 
+        // SPEED FIX: Preload the ad as soon as the page loads
+        // This makes the ad appear instantly when they click later
+        window.TelegramAdsController.preloadInterstitial();
+
         function showAd() {
-            // This is the most reliable way to trigger the ad
+            const btn = document.querySelector('.btn');
+            btn.innerText = "Loading Ad..."; 
+            btn.disabled = true;
+
+            // Show the ad that was already preloaded
             window.TelegramAdsController.showInterstitial();
+
+            // Reset button after 3 seconds so they can try again
+            setTimeout(() => {
+                btn.innerText = "📺 WATCH AD NOW";
+                btn.disabled = false;
+            }, 3000);
         }
     </script>
 
     <style>
-        body { font-family: sans-serif; text-align: center; background-color: #f4f4f4; padding: 50px; }
-        .btn { background: #0088cc; color: #fff; border: none; padding: 15px 30px; border-radius: 8px; cursor: pointer; font-size: 18px; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .btn:active { transform: scale(0.98); }
+        body { font-family: sans-serif; text-align: center; background-color: #f4f4f4; padding: 40px 20px; }
+        .btn { background: #0088cc; color: #fff; border: none; padding: 18px 30px; border-radius: 12px; cursor: pointer; font-size: 18px; font-weight: bold; width: 100%; max-width: 300px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: 0.2s; }
+        .btn:active { transform: scale(0.95); background: #006699; }
+        .btn:disabled { background: #cccccc; cursor: not-allowed; }
+        h2 { color: #333; }
+        p { color: #666; margin-bottom: 30px; }
     </style>
 </head>
 <body>
     <h2>🚀 Neshi Rewards</h2>
-    <p>Watch an ad to support us and earn!</p>
+    <p>Tap below to watch a video and earn points!</p>
     
     <button class="btn" onclick="showAd()">📺 WATCH AD NOW</button>
 </body>
 </html>
+
 
