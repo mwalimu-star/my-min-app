@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electronics Status Ads</title>
+    <style>
+        body { font-family: sans-serif; background: #075E54; color: white; padding: 20px; }
+        .product-card { background: white; color: #333; border-radius: 15px; padding: 15px; margin-bottom: 20px; }
+        .price { color: #e11d48; font-weight: bold; font-size: 18px; }
+        .btn-copy { background: #25D366; color: white; border: none; padding: 10px; border-radius: 8px; width: 100%; margin-top: 10px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h3>📢 Earn 20 KES per Status</h3>
+    <p style="font-size: 12px; opacity: 0.8;">Post these on WhatsApp for 24 hours.</p>
+
+    <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=300" style="width:100%; border-radius: 10px;">
+        <h4>Vitron 32" Smart Android TV</h4>
+        <p class="price">KSh 11,500</p>
+        <p id="t1" style="font-size: 12px;">"Get this Vitron 32-inch Smart TV at Neshi Electronics! Clear display, YouTube, Netflix. DM to order!"</p>
+        <button class="btn-copy" onclick="copy('t1')">Copy Caption</button>
+    </div>
+
+    <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=300" style="width:100%; border-radius: 10px;">
+        <h4>Samsung Galaxy A07 (2026 Edition)</h4>
+        <p class="price">KSh 12,800</p>
+        <p id="t2" style="font-size: 12px;">"Brand new Samsung A07 now in stock. Best battery life! Price: 12,800 KES only at Neshi."</p>
+        <button class="btn-copy" onclick="copy('t2')">Copy Caption</button>
+    </div>
+
+    <button onclick="window.open('https://wa.me/254717404332')" style="width:100%; padding:15px; background:white; color:#075E54; border:none; border-radius:12px; font-weight:bold;">📤 Submit Screenshot Proof</button>
+
+    <script>
+        function copy(id) {
+            const text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text);
+            alert("Caption copied! Post it with the image.");
+        }
+    </script>
+</body>
+</html>
+<button onclick="location.href='ads.html'">Watch Ads</button>
+
+<button onclick="location.href='whatsapp.html'">WhatsApp Earn</button>
+<a href="index.html">← Back to Dashboard</a>
+
+
