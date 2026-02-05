@@ -4,65 +4,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>RichAds Official Center</title>
+    
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"></script>
     
     <style>
-        body { font-family: -apple-system, sans-serif; background: #0f172a; color: white; text-align: center; padding: 20px; }
-        .card { background: #1e293b; padding: 20px; border-radius: 20px; margin-bottom: 15px; border: 1px solid #334155; }
-        .btn { background: #3b82f6; color: white; border: none; padding: 14px; border-radius: 12px; width: 100%; font-weight: bold; cursor: pointer; margin-top: 10px; }
-        .btn:active { transform: scale(0.98); }
-        .status { font-size: 12px; color: #94a3b8; margin-top: 5px; }
+        :root { --bg: #0f172a; --card: #1e293b; --text: #f8fafc; --accent: #3b82f6; }
+        body { font-family: -apple-system, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; text-align: center; }
+        .grid { display: grid; grid-template-columns: 1fr; gap: 15px; max-width: 400px; margin: 0 auto; }
+        .ad-card { background: var(--card); padding: 20px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); }
+        .btn { background: var(--accent); color: white; border: none; padding: 14px; border-radius: 12px; width: 100%; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        .btn:active { transform: scale(0.96); }
+        .btn-gray { background: #475569; }
+        .reward { color: #4cd964; font-size: 12px; font-weight: bold; display: block; margin-bottom: 8px; }
+        #embedded-banner { min-height: 50px; background: rgba(0,0,0,0.2); border-radius: 8px; margin-top: 10px; }
     </style>
 </head>
 <body>
 
-    <h2>💰 RichAds Earn Hub</h2>
-    <p>Tap each format once to activate your tags</p>
+    <h2 style="margin-bottom: 5px;">RichAds Earn Center</h2>
+    <p style="color: #94a3b8; font-size: 14px; margin-bottom: 25px;">Activate all 5 formats to start earning</p>
 
-    <div class="card">
-        <strong>1. Premium Video</strong>
-        <button class="btn" onclick="showAd('video')">🎬 Play Video</button>
+    <div class="grid">
+        <div class="ad-card">
+            <span class="reward">FORMAT 1</span>
+            <button class="btn" onclick="triggerAd('video')">🎬 Watch Video Ad</button>
+        </div>
+
+        <div class="ad-card">
+            <span class="reward">FORMAT 2</span>
+            <button class="btn" onclick="triggerAd('interstitial')">🖼️ Show Interstitial</button>
+        </div>
+
+        <div class="ad-card">
+            <span class="reward">FORMAT 3</span>
+            <button class="btn btn-gray" onclick="triggerAd('playable')">🎮 Play Demo Game</button>
+        </div>
+
+        <div class="ad-card">
+            <span class="reward">FORMAT 4</span>
+            <button class="btn btn-gray" onclick="triggerAd('push')">🔔 Show Push Alert</button>
+        </div>
+
+        <div class="ad-card">
+            <span class="reward">FORMAT 5 (AUTO)</span>
+            <div id="richads-banner-container"></div>
+            <p style="font-size: 11px; color: #94a3b8;">Embedded Banner Loading...</p>
+        </div>
     </div>
 
-    <div class="card">
-        <strong>2. Interstitial Banner</strong>
-        <button class="btn" onclick="showAd('interstitial')">🖼️ Show Banner</button>
-    </div>
-
-    <div class="card">
-        <strong>3. Playable Demo</strong>
-        <button class="btn" onclick="showAd('playable')">🎮 Play Mini-Game</button>
-    </div>
-
-    <div class="card">
-        <strong>4. Push Notification</strong>
-        <button class="btn" onclick="showAd('push')">🔔 Show Push</button>
-    </div>
-
-    <div class="card">
-        <strong>5. Embedded Banner</strong>
-        <div id="richads-banner-container"></div>
-        <p class="status">Auto-loading below...</p>
-    </div>
+    <p style="margin-top: 30px;"><a href="index.html" style="color: var(--accent); text-decoration: none;">← Back to Dashboard</a></p>
 
     <script>
+        // Start Telegram Web App
         window.Telegram.WebApp.ready();
-        const ads = new TelegramAdsController();
-        ads.initialize({ pubId: "1001227", appId: "6034" });
+        window.Telegram.WebApp.expand();
 
-        // Preload everything to ensure the "Ping" reaches the server
+        // Initialize RichAds with PRODUCTION MODE
+        const ads = new TelegramAdsController();
+        ads.initialize({
+            pubId: "1001227",
+            appId: "6034",
+            production: true // IMPORTANT: This forces the server to send real ads
+        });
+
+        // Preload everything immediately for speed
         ads.preloadVideoAd();
         ads.preloadInterstitial();
 
-        function showAd(type) {
-            console.log("Triggering: " + type);
+        function triggerAd(type) {
+            console.log("Requesting: " + type);
             if (type === 'video') ads.showVideoAd();
             else if (type === 'interstitial') ads.showInterstitial();
-            else if (type === 'playable') ads.showPlayableAd(); // RichAds Playable trigger
-            else if (type === 'push') ads.showPushAd(); // RichAds Push trigger
-            
-            // Note: Embedded banners usually load automatically via the container ID
+            else if (type === 'playable') ads.showPlayableAd();
+            else if (type === 'push') ads.showPushAd();
         }
     </script>
 </body>
