@@ -1,3 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earn Rewards</title>
+    
+    <script src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"></script>
+    <script>
+        window.TelegramAdsController = new TelegramAdsController();
+        window.TelegramAdsController.initialize({
+            pubId: "1001227",
+            appId: "6034"
+        });
+
+        function showAd() {
+            window.TelegramAdsController.showAd();
+        }
+    </script>
+
+    <style>
+        body { font-family: sans-serif; text-align: center; background-color: #f4f4f4; padding: 50px; }
+        .btn { background: #0088cc; color: #fff; border: none; padding: 15px 30px; border-radius: 8px; cursor: pointer; font-size: 18px; }
+        .btn:hover { background: #006699; }
+    </style>
+</head>
+<body>
+    <h2>🚀 Welcome to Neshi Rewards</h2>
+    <p>Click below to watch an ad and start earning!</p>
+    
+    <button class="btn" onclick="showAd()">📺 WATCH AD</button>
+</body>
+</html>
+
+
 <script src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"></script>
 <script>
   window.TelegramAdsController = new TelegramAdsController();
@@ -10,4 +45,3 @@
     window.TelegramAdsController.showAd(); 
   }
 </script>
-
