@@ -2,47 +2,108 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neshi Rewards</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Neshi Rewards Pro</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"></script>
-    <script>
-        window.Telegram.WebApp.ready();
-        window.TelegramAdsController = new TelegramAdsController();
-        window.TelegramAdsController.initialize({ pubId: "1001227", appId: "6034" });
-
-        // PRELOAD: This fixes the "slow" issue by loading ads in the background
-        window.TelegramAdsController.preloadVideoAd();
-        window.TelegramAdsController.preloadInterstitial();
-
-        function showMyAd(type) {
-            const btn = event.target;
-            const originalText = btn.innerText;
-            btn.innerText = "⏳ Loading...";
-            btn.disabled = true;
-
-            if (type === 'video') window.TelegramAdsController.showVideoAd();
-            else window.TelegramAdsController.showInterstitial();
-
-            setTimeout(() => { btn.innerText = originalText; btn.disabled = false; }, 3000);
-        }
-    </script>
+    
     <style>
-        body { font-family: sans-serif; text-align: center; padding: 40px 20px; background: #f0f2f5; }
-        .card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        .btn { display: block; width: 100%; margin: 15px 0; padding: 18px; border: none; border-radius: 12px; font-size: 16px; font-weight: bold; color: white; cursor: pointer; transition: 0.2s; }
-        .btn-video { background: #ff4757; }
-        .btn-quick { background: #1e90ff; }
-        .btn:active { transform: scale(0.96); }
+        :root {
+            /* These variables automatically sync with Telegram's colors */
+            --tg-bg: var(--tg-theme-bg-color, #1c1c1e);
+            --tg-text: var(--tg-theme-text-color, #ffffff);
+            --tg-hint: var(--tg-theme-hint-color, #8e8e93);
+            --tg-button: var(--tg-theme-button-color, #007aff);
+            --tg-button-text: var(--tg-theme-button-text-color, #ffffff);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--tg-bg);
+            color: var(--tg-text);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .balance-card {
+            background: linear-gradient(135deg, #2c2c2e 0%, #1c1c1e 100%);
+            padding: 30px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .balance-label { color: var(--tg-hint); font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+        .balance-amount { font-size: 42px; font-weight: 800; margin: 10px 0; color: #ffca28; }
+
+        .btn-group { display: flex; flex-direction: column; gap: 15px; }
+
+        .btn {
+            background-color: var(--tg-button);
+            color: var(--tg-button-text);
+            border: none;
+            padding: 18px;
+            border-radius: 16px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.1s ease, opacity 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn:active { transform: scale(0.97); opacity: 0.9; }
+        .btn-secondary { background-color: #3a3a3c; }
+
+        .footer { margin-top: 40px; color: var(--tg-hint); font-size: 12px; }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h2>🚀 Neshi Rewards</h2>
-        <p>Choose an ad to earn points:</p>
-        <button class="btn btn-video" onclick="showMyAd('video')">🎬 Watch Video (Max Pay)</button>
-        <button class="btn btn-quick" onclick="showMyAd('quick')">🖼️ Quick Ad (Faster)</button>
+
+    <div class="container">
+        <div class="balance-card">
+            <div class="balance-label">Total Earnings</div>
+            <div class="balance-amount">$0.00</div>
+            <div style="color: #4cd964; font-size: 14px;">● System Active</div>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn" onclick="showAd('video')">🎬 Watch Premium Video</button>
+            <button class="btn btn-secondary" onclick="showAd('interstitial')">🖼️ Quick Earn</button>
+        </div>
+
+        <div class="footer">Powered by Neshi Rewards & RichAds</div>
     </div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.ready();
+        tg.expand(); // Opens the app to full height immediately
+
+        const controller = new TelegramAdsController();
+        controller.initialize({ pubId: "1001227", appId: "6034" });
+        controller.preloadVideoAd();
+
+        function showAd(type) {
+            if (type === 'video') controller.showVideoAd();
+            else controller.showInterstitial();
+        }
+    </script>
 </body>
 </html>
+
 
