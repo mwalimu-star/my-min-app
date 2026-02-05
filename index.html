@@ -5,8 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Earn Rewards</title>
 
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
     <script src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"></script>
     <script>
+        // Inform Telegram the app is ready
+        window.Telegram.WebApp.ready();
+
         window.TelegramAdsController = new TelegramAdsController();
         window.TelegramAdsController.initialize({
             pubId: "1001227",
@@ -14,20 +19,22 @@
         });
 
         function showAd() {
-            window.TelegramAdsController.showAd();
+            // This is the most reliable way to trigger the ad
+            window.TelegramAdsController.showInterstitial();
         }
     </script>
 
     <style>
         body { font-family: sans-serif; text-align: center; background-color: #f4f4f4; padding: 50px; }
-        .btn { background: #0088cc; color: #fff; border: none; padding: 15px 30px; border-radius: 8px; cursor: pointer; font-size: 18px; }
-        .btn:hover { background: #006699; }
+        .btn { background: #0088cc; color: #fff; border: none; padding: 15px 30px; border-radius: 8px; cursor: pointer; font-size: 18px; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .btn:active { transform: scale(0.98); }
     </style>
 </head>
 <body>
-    <h2>🚀 Welcome to Neshi Rewards</h2>
-    <p>Click below to watch an ad and start earning!</p>
+    <h2>🚀 Neshi Rewards</h2>
+    <p>Watch an ad to support us and earn!</p>
     
-    <button class="btn" onclick="showAd()">📺 WATCH AD</button>
+    <button class="btn" onclick="showAd()">📺 WATCH AD NOW</button>
 </body>
 </html>
+
