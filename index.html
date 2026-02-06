@@ -1,48 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neshi Rewards</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <title>Neshi Rewards - @Neshi1013bot</title>
+
     <script src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"></script>
+    
     <script>
-        window.Telegram.WebApp.ready();
         window.TelegramAdsController = new TelegramAdsController();
-        window.TelegramAdsController.initialize({ pubId: "1001227", appId: "6034" });
-
-        // PRELOAD: This fixes the "slow" issue by loading ads in the background
-        window.TelegramAdsController.preloadVideoAd();
-        window.TelegramAdsController.preloadInterstitial();
-
-        function showMyAd(type) {
-            const btn = event.target;
-            const originalText = btn.innerText;
-            btn.innerText = "⏳ Loading...";
-            btn.disabled = true;
-
-            if (type === 'video') window.TelegramAdsController.showVideoAd();
-            else window.TelegramAdsController.showInterstitial();
-
-            setTimeout(() => { btn.innerText = originalText; btn.disabled = false; }, 3000);
-        }
+        window.TelegramAdsController.initialize({
+            pubId: "1001227",
+            appId: "6034",
+        });
     </script>
+
     <style>
-        body { font-family: sans-serif; text-align: center; padding: 40px 20px; background: #f0f2f5; }
-        .card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        .btn { display: block; width: 100%; margin: 15px 0; padding: 18px; border: none; border-radius: 12px; font-size: 16px; font-weight: bold; color: white; cursor: pointer; transition: 0.2s; }
-        .btn-video { background: #ff4757; }
-        .btn-quick { background: #1e90ff; }
-        .btn:active { transform: scale(0.96); }
+        body { font-family: sans-serif; text-align: center; background: #f0f2f5; padding-top: 50px; }
+        .reward-box { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); display: inline-block; width: 80%; }
+        .btn-play { background: #0088cc; color: white; border: none; padding: 15px 25px; border-radius: 8px; font-size: 1.1rem; cursor: pointer; transition: 0.3s; }
+        .btn-play:active { transform: scale(0.95); }
+        #status { margin-top: 15px; font-size: 0.9rem; color: #555; }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h2>🚀 Neshi Rewards</h2>
-        <p>Choose an ad to earn points:</p>
-        <button class="btn btn-video" onclick="showMyAd('video')">🎬 Watch Video (Max Pay)</button>
-        <button class="btn btn-quick" onclick="showMyAd('quick')">🖼️ Quick Ad (Faster)</button>
+
+    <div class="reward-box">
+        <h2>💰 Neshi Rewards</h2>
+        <p>Watch a short video to claim your reward!</p>
+        
+        <button class="btn-play" onclick="playVideoAd()">▶ Watch Video</button>
+        
+        <div id="status">Status: Waiting</div>
     </div>
+
+    <script>
+        function playVideoAd() {
+            const statusDiv = document.getElementById('status');
+            statusDiv.innerText = "Connecting to server...";
+
+            // 5. THE PLAYBACK TAG: Tells RichAds to show the video
+            window.TelegramAdsController.playAd((result) => {
+                if (result === 'completed') {
+                    statusDiv.innerText = "✅ Reward Earned!";
+                    alert("Success! You watched the full ad.");
+                } else {
+                    statusDiv.innerText = "❌ Video skipped or failed.";
+                    alert("You must finish the video to get the reward.");
+                }
+            });
+        }
+    </script>
+
 </body>
 </html>
 
