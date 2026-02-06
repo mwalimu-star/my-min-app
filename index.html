@@ -3,62 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Neshi Ads Center</title>
+    <title>Neshi Rewards - RichAds</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        :root { --bg: #0f172a; --card: #1e293b; --green: #25D366; --accent: #3b82f6; --text: #ffffff; }
+        :root { --bg: #0f172a; --card: #1e293b; --accent: #3b82f6; --text: #ffffff; }
         body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 15px; text-align: center; }
         
         .hero { padding: 30px; border-radius: 20px; background: var(--card); margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.1); }
+        .btn-main { background: var(--accent); color: white; border: none; padding: 20px; border-radius: 15px; width: 100%; font-weight: bold; cursor: pointer; font-size: 18px; }
         
-        /* The button that user clicks to show ads */
-        .btn-main { background: var(--accent); color: white; border: none; padding: 20px; border-radius: 15px; width: 100%; font-weight: bold; cursor: pointer; font-size: 18px; box-shadow: 0 4px 15px rgba(59,130,246,0.3); }
-        
-        /* This container is HIDDEN by default */
-        #adsSection { display: none; margin-top: 25px; padding: 15px; background: rgba(255,255,255,0.02); border-radius: 20px; }
-        
-        .ad-card { background: var(--card); border-radius: 15px; overflow: hidden; margin-bottom: 20px; border: 1px solid #334155; }
-        .ad-img { width: 100%; height: 200px; object-fit: cover; }
-        .ad-info { padding: 15px; }
-        .btn-copy { background: var(--green); color: white; border: none; padding: 12px; border-radius: 10px; width: 100%; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        /* This container holds the RichAds and stays hidden until clicked */
+        #richAdsContainer { 
+            display: none; 
+            margin-top: 25px; 
+            padding: 15px; 
+            background: var(--card); 
+            border-radius: 20px; 
+            min-height: 300px;
+        }
     </style>
 </head>
 <body>
 
     <div class="hero">
         <h1 style="margin:0;">Neshi Rewards</h1>
-        <p style="opacity: 0.7;">Click below to find today's tasks</p>
+        <p style="opacity: 0.7;">Play Ads & Earn Rewards</p>
     </div>
 
-    <button class="btn-main" onclick="showAds()">📢 OPEN ADS CENTER</button>
+    <button class="btn-main" onclick="openRichAds()">📢 OPEN PLAYABLE ADS</button>
 
-    <div id="adsSection">
-        <h2 style="color: var(--green);">Available Ads</h2>
+    <div id="richAdsContainer">
+        <h3 style="margin-bottom: 20px;">RichAds Earning Center</h3>
         
-        <div class="ad-card">
-            <img src="https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=500" class="ad-img">
-            <div class="ad-info">
-                <p id="txt1">"Vitron 32-inch Smart TV! KSh 11,500. DM to buy!"</p>
-                <button class="btn-copy" onclick="copyAd('txt1')">📋 Copy for WhatsApp</button>
-            </div>
-        </div>
-
-        <div style="margin-top: 30px;">
-            <button style="background: white; color: black; border: none; padding: 15px; border-radius: 12px; font-weight: bold; width: 100%;" onclick="window.open('https://wa.me/254717404332')">📤 SUBMIT PROOF</button>
-        </div>
+        <script async src="https://richads.com/js/sdk.js"></script>
+        <div id="richads-zone-12345"></div> <p style="font-size: 12px; margin-top: 15px; opacity: 0.6;">Complete the playable ad to claim points.</p>
     </div>
 
     <script>
-        function showAds() {
-            var section = document.getElementById("adsSection");
-            section.style.display = "block"; // Makes the ads appear
-            window.scrollTo({ top: section.offsetTop, behavior: 'smooth' });
-        }
-
-        function copyAd(id) {
-            const text = document.getElementById(id).innerText;
-            navigator.clipboard.writeText(text);
-            alert("Caption Copied! Post it to your status.");
+        function openRichAds() {
+            var container = document.getElementById("richAdsContainer");
+            container.style.display = "block";
+            
+            // Optional: Auto-scroll to the ads once opened
+            window.scrollTo({ top: container.offsetTop, behavior: 'smooth' });
+            
+            // Re-initialize RichAds if necessary
+            if (window.RichAds) {
+                window.RichAds.render();
+            }
         }
 
         window.Telegram.WebApp.ready();
@@ -66,4 +58,5 @@
     </script>
 </body>
 </html>
+
 
