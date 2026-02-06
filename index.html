@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neshi Rewards</title>
+    <title>Neshi Multi-Ads Rewards</title>
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
@@ -18,44 +18,58 @@
     </script>
 
     <style>
-      body { font-family: sans-serif; text-align: center; background: #f0f2f5; padding-top: 50px; }
-      .reward-box { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); display: inline-block; width: 85%; }
-      .btn-play { background: #0088cc; color: white; border: none; padding: 15px 30px; border-radius: 8px; font-size: 1.2rem; cursor: pointer; }
-      #status { margin-top: 15px; color: #555; font-size: 0.9rem; }
+      body { font-family: sans-serif; text-align: center; background: #f0f2f5; padding: 20px; }
+      .ad-card { background: white; padding: 15px; margin: 10px auto; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); width: 90%; }
+      .btn { color: white; border: none; padding: 12px; border-radius: 8px; width: 100%; font-weight: bold; cursor: pointer; }
+      .v-ad { background: #0088cc; } /* Video */
+      .s-ad { background: #28a745; } /* Static */
+      .i-ad { background: #ffc107; color: black; } /* Interstitial */
+      #status { font-size: 0.8rem; color: #888; margin-top: 20px; }
     </style>
 </head>
 <body>
 
-    <div class="reward-box">
-        <h2>💰 Neshi Rewards</h2>
-        <p>Watch a short video to claim your reward!</p>
-        
-        <button class="btn-play" onclick="showMyAd()">▶ Watch Video</button>
-        
-        <div id="status">Ready</div>
+    <h2>💰 Neshi Multi-Rewards</h2>
+
+    <div class="ad-card">
+        <p>Aina 1: Video Ad</p>
+        <button class="btn v-ad" onclick="playAd('rewarded')">Watch Full Video</button>
     </div>
 
+    <div class="ad-card">
+        <p>Aina 2: Interstitial Ad</p>
+        <button class="btn i-ad" onclick="playAd('interstitial')">View Full-Page Ad</button>
+    </div>
+
+    <div class="ad-card">
+        <p>Aina 3: Static Banner</p>
+        <button class="btn s-ad" onclick="playAd('static')">Show Banner Ad</button>
+    </div>
+
+    <div id="status">Ready to load ads...</div>
+
     <script>
-        function showMyAd() {
-            const statusDiv = document.getElementById('status');
-            statusDiv.innerText = "Connecting to server...";
+        // 4. FUNCTION YA KURAN ADS ZOTE
+        function playAd(adType) {
+            const status = document.getElementById('status');
+            status.innerText = "Loading " + adType + "...";
 
             window.TelegramAdsController.playAd((result) => {
                 if (result === 'completed') {
-                    statusDiv.innerText = "✅ Reward Earned!";
-                    alert("Success! You earned your reward.");
+                    status.innerText = "✅ " + adType + " Finished! Reward Earned.";
                 } else {
-                    statusDiv.innerText = "❌ Video not finished.";
+                    status.innerText = "❌ Ad skipped.";
                 }
-            });
+            }, adType); // Hapa inachagua aina ya ad (video, static, interstitial)
         }
-        
-        // Tells Telegram the app is ready to display
+
+        // 5. TELEGRAM READY (Inaondoa "Connecting to server" hang)
         Telegram.WebApp.ready();
     </script>
 
 </body>
 </html>
+
 
 
 
