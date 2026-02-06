@@ -1,87 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-<<!DOCTYPE html>
-<html lang="en">
-<head>
+<>
     <meta charset="UTF-8">
-    <title>My Mini App</title>
-
-    <script src="https://richads-example-link.js"></script> 
-    </head>
-<body>
-    </body>
-</html>
->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Neshi Electronics & Rewards</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neshi Rewards</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <style>
-        :root { --tg-bg: #0f172a; --tg-text: #ffffff; --accent: #3b82f6; --green: #22c55e; }
-        body { font-family: 'Inter', sans-serif; background: var(--tg-bg); color: var(--tg-text); margin: 0; padding: 15px; }
-        
-        /* Hero Section */
-        .hero { 
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=500&q=80');
-            background-size: cover; height: 180px; border-radius: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; border: 1px solid rgba(255,255,255,0.1);
-        }
+    <script src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"></script>
+    <script>
+        window.Telegram.WebApp.ready();
+        window.TelegramAdsController = new TelegramAdsController();
+        window.TelegramAdsController.initialize({ pubId: "1001227", appId: "6034" });
 
-        /* Activation Card */
-        .pay-card { 
-            background: rgba(255,255,255,0.05); border-radius: 20px; padding: 20px; margin-top: 20px; border: 1px dashed var(--accent);
+        // PRELOAD: This fixes the "slow" issue by loading ads in the background
+        window.TelegramAdsController.preloadVideoAd();
+        window.TelegramAdsController.preloadInterstitial();
+
+        function showMyAd(type) {
+            const btn = event.target;
+            const originalText = btn.innerText;
+            btn.innerText = "⏳ Loading...";
+            btn.disabled = true;
+
+            if (type === 'video') window.TelegramAdsController.showVideoAd();
+            else window.TelegramAdsController.showInterstitial();
+
+            setTimeout(() => { btn.innerText = originalText; btn.disabled = false; }, 3000);
         }
-        
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
-        .item { background: #1e293b; padding: 20px; border-radius: 18px; text-align: center; border: 1px solid rgba(255,255,255,0.05); cursor: pointer; }
-        .icon { font-size: 24px; margin-bottom: 8px; display: block; }
-        .btn-pay { background: var(--green); color: white; border: none; width: 100%; padding: 15px; border-radius: 12px; font-weight: bold; margin-top: 10px; }
+    </script>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 40px 20px; background: #f0f2f5; }
+        .card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .btn { display: block; width: 100%; margin: 15px 0; padding: 18px; border: none; border-radius: 12px; font-size: 16px; font-weight: bold; color: white; cursor: pointer; transition: 0.2s; }
+        .btn-video { background: #ff4757; }
+        .btn-quick { background: #1e90ff; }
+        .btn:active { transform: scale(0.96); }
     </style>
 </head>
 <body>
-
-    <div class="hero">
-        <h2 style="margin:0">Neshi Electronics</h2>
-        <p style="font-size: 14px; opacity: 0.8;">Shop Smarter • Earn Faster</p>
+    <div class="card">
+        <h2>🚀 Neshi Rewards</h2>
+        <p>Choose an ad to earn points:</p>
+        <button class="btn btn-video" onclick="showMyAd('video')">🎬 Watch Video (Max Pay)</button>
+        <button class="btn btn-quick" onclick="showMyAd('quick')">🖼️ Quick Ad (Faster)</button>
     </div>
-
-    <div class="pay-card">
-        <span style="font-size: 12px; color: var(--accent); font-weight: bold;">M-PESA ACTIVATION</span>
-        <h3 style="margin: 5px 0;">Unlock VIP Status</h3>
-        <p style="font-size: 13px; opacity: 0.7;">Pay 100 KES to Pochi: <strong>0717404332</strong> to enable instant withdrawals.</p>
-        <button class="btn-pay" onclick="openPochi()">Pay 100 KES</button>
-    </div>
-
-    <div class="grid">
-        <div class="item" onclick="location.href='ads.html'">
-            <span class="icon">🎬</span>
-            <strong>Watch & Earn</strong>
-        </div>
-        <div class="item" onclick="location.href='whatsapp.html'">
-            <span class="icon">📱</span>
-            <strong>Status Ads</strong>
-        </div>
-    </div>
-
-    <div class="item" style="margin-top: 15px; width: auto;" onclick="window.open('https://whatsapp.com/channel/0029VaP6R3B60eBf5fD0B02v', '_blank')">
-        <span class="icon">📦</span>
-        <strong>Join Electronics Channel</strong>
-        <p style="font-size: 11px; opacity: 0.6;">View Daily Prices & New Stock</p>
-    </div>
-
-    <script>
-        const tg = window.Telegram.WebApp;
-        tg.ready();
-        tg.expand();
-
-        function openPochi() {
-            tg.showConfirm("Pay 100 KES to Pochi 0717404332. Have you completed the transaction?", (confirmed) => {
-                if(confirmed) tg.showAlert("Payment request sent to Admin for verification.");
-            });
-        }
-    </script>
 </body>
 </html>
-
 
 
 
