@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neshi Multi-Ad Bot</title>
+    <title>Neshi 5-Ad Rewards</title>
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
@@ -18,74 +18,61 @@
     </script>
 
     <style>
-      body { font-family: sans-serif; text-align: center; background: #f0f2f5; padding: 20px; }
-      .ad-box { background: white; padding: 15px; margin: 10px auto; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); max-width: 400px; }
-      .btn { color: white; border: none; padding: 12px; border-radius: 8px; width: 100%; font-weight: bold; cursor: pointer; margin-top: 5px; }
-      
-      /* Colors for the 5 different types */
-      .playable { background: #0088cc; }
-      .int-video { background: #28a745; }
-      .int-banner { background: #ffc107; color: black; }
-      .embedded { background: #dc3545; }
-      .push { background: #6f42c1; }
-      
-      #status { margin-top: 20px; font-size: 0.9rem; color: #666; }
+      body { font-family: sans-serif; text-align: center; background: #f4f7f6; padding: 20px; }
+      .ad-box { background: white; padding: 15px; margin: 10px auto; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); max-width: 400px; }
+      .btn { color: white; border: none; padding: 12px; border-radius: 6px; width: 100%; font-weight: bold; cursor: pointer; margin-top: 5px; }
+      .c1 { background: #0088cc; } .c2 { background: #28a745; } .c3 { background: #fd7e14; } .c4 { background: #dc3545; } .c5 { background: #6f42c1; }
+      #status { margin-top: 20px; font-weight: bold; color: #333; }
     </style>
 </head>
 <body>
 
-    <h2>💰 Richads Multi-Rewards</h2>
+    <h2>💰 Neshi Multi-Ad Rewards</h2>
 
     <div class="ad-box">
         <p>1. Playable Ads</p>
-        <button class="btn playable" onclick="runAd('rewarded')">Play & Earn</button>
+        <button class="btn c1" onclick="loadAd('rewarded')">Play & Earn</button>
     </div>
 
     <div class="ad-box">
         <p>2. Interstitial Video</p>
-        <button class="btn int-video" onclick="runAd('interstitial')">Watch Video</button>
+        <button class="btn c2" onclick="loadAd('interstitial')">Watch Video</button>
     </div>
 
     <div class="ad-box">
         <p>3. Interstitial Banner</p>
-        <button class="btn int-banner" onclick="runAd('static')">View Banner</button>
+        <button class="btn c3" onclick="loadAd('static')">Show Banner</button>
     </div>
 
     <div class="ad-box">
         <p>4. Embedded Banner</p>
-        <button class="btn embedded" onclick="runAd('native')">Show Offer</button>
+        <button class="btn c4" onclick="loadAd('native')">Check Offers</button>
     </div>
 
     <div class="ad-box">
         <p>5. Push-Style Ads</p>
-        <button class="btn push" onclick="runAd('auto')">Get Notification</button>
+        <button class="btn c5" onclick="loadAd('auto')">Get Notification</button>
     </div>
 
     <div id="status">Ready</div>
 
     <script>
-        function runAd(adType) {
-            const statusDiv = document.getElementById('status');
-            statusDiv.innerText = "Loading " + adType + "...";
+      function loadAd(adType) {
+        const status = document.getElementById('status');
+        status.innerText = "Loading " + adType + "...";
 
-            window.TelegramAdsController.playAd((result) => {
-                if (result === 'completed') {
-                    statusDiv.innerText = "✅ Reward Earned!";
-                } else {
-                    statusDiv.innerText = "❌ Ad not finished.";
-                }
-            }, adType);
-        }
+        window.TelegramAdsController.playAd((result) => {
+          if (result === 'completed') {
+            status.innerText = "✅ " + adType + " Finished!";
+          } else {
+            status.innerText = "❌ Ad Canceled";
+          }
+        }, adType);
+      }
 
-        // Finalize Telegram WebApp
-        Telegram.WebApp.ready();
+      // Tells Telegram the app is fully loaded
+      Telegram.WebApp.ready();
     </script>
 
 </body>
 </html>
-
-
-
-
-
-
