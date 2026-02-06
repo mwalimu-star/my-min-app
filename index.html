@@ -1,74 +1,69 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Neshi Electronics & Rewards</title>
+    <title>Neshi Ads Center</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         :root { --bg: #0f172a; --card: #1e293b; --green: #25D366; --accent: #3b82f6; --text: #ffffff; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 15px; }
-        .hero { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1498049794561-7780e7231661?w=500'); background-size: cover; padding: 30px; border-radius: 20px; text-align: center; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px; }
-        .pay-card { background: rgba(59, 130, 246, 0.1); border: 1px solid var(--accent); border-radius: 20px; padding: 20px; margin-bottom: 20px; text-align: center; }
-        .acc-box { background: #000; padding: 10px; border-radius: 10px; font-family: monospace; font-size: 20px; color: var(--accent); margin: 10px 0; border: 1px solid #334155; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 15px; text-align: center; }
         
-        /* This hides the ads by default */
-        #adsContainer { display: none; margin-top: 20px; }
+        .hero { padding: 30px; border-radius: 20px; background: var(--card); margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.1); }
         
-        .product-card { background: var(--card); border-radius: 20px; overflow: hidden; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.05); }
-        .prod-img { width: 100%; height: 180px; object-fit: cover; }
-        .prod-info { padding: 15px; }
-        .btn-main { background: var(--accent); color: white; border: none; padding: 18px; border-radius: 15px; width: 100%; font-weight: bold; cursor: pointer; font-size: 16px; }
-        .btn-copy { background: var(--green); color: white; border: none; padding: 12px; border-radius: 12px; width: 100%; font-weight: bold; cursor: pointer; }
+        /* The button that user clicks to show ads */
+        .btn-main { background: var(--accent); color: white; border: none; padding: 20px; border-radius: 15px; width: 100%; font-weight: bold; cursor: pointer; font-size: 18px; box-shadow: 0 4px 15px rgba(59,130,246,0.3); }
+        
+        /* This container is HIDDEN by default */
+        #adsSection { display: none; margin-top: 25px; padding: 15px; background: rgba(255,255,255,0.02); border-radius: 20px; }
+        
+        .ad-card { background: var(--card); border-radius: 15px; overflow: hidden; margin-bottom: 20px; border: 1px solid #334155; }
+        .ad-img { width: 100%; height: 200px; object-fit: cover; }
+        .ad-info { padding: 15px; }
+        .btn-copy { background: var(--green); color: white; border: none; padding: 12px; border-radius: 10px; width: 100%; font-weight: bold; cursor: pointer; margin-top: 10px; }
     </style>
 </head>
 <body>
+
     <div class="hero">
-        <h1 style="margin:0;">Neshi Electronics</h1>
-        <p style="opacity: 0.8;">Dashboard</p>
+        <h1 style="margin:0;">Neshi Rewards</h1>
+        <p style="opacity: 0.7;">Click below to find today's tasks</p>
     </div>
 
-    <div class="pay-card">
-        <span style="font-weight: bold; color: var(--accent);">VIP ACTIVATION: 100 KES</span>
-        <div class="acc-box">ACC: 1327227169</div>
-    </div>
+    <button class="btn-main" onclick="showAds()">📢 OPEN ADS CENTER</button>
 
-    <button class="btn-main" onclick="toggleAds()">📱 VIEW DAILY ADS & TASKS</button>
-
-    <div id="adsContainer">
-        <h3 style="text-align: center;">Available Tasks</h3>
+    <div id="adsSection">
+        <h2 style="color: var(--green);">Available Ads</h2>
         
-        <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=500" class="prod-img">
-            <div class="prod-info">
-                <p id="cap1" style="font-size: 13px;">"Vitron 32-inch Smart TV! KSh 11,500 at Neshi Electronics. DM to buy!"</p>
-                <button class="btn-copy" onclick="copyText('cap1')">📋 Copy Caption</button>
+        <div class="ad-card">
+            <img src="https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=500" class="ad-img">
+            <div class="ad-info">
+                <p id="txt1">"Vitron 32-inch Smart TV! KSh 11,500. DM to buy!"</p>
+                <button class="btn-copy" onclick="copyAd('txt1')">📋 Copy for WhatsApp</button>
             </div>
         </div>
 
-        <div style="background: var(--card); padding: 20px; border-radius: 20px; border: 1px solid var(--green);">
-            <button style="background: #fff; color: #000; border: none; padding: 15px; border-radius: 10px; width: 100%; font-weight: 800;" onclick="window.open('https://wa.me/254717404332')">📤 SUBMIT SCREENSHOT</button>
+        <div style="margin-top: 30px;">
+            <button style="background: white; color: black; border: none; padding: 15px; border-radius: 12px; font-weight: bold; width: 100%;" onclick="window.open('https://wa.me/254717404332')">📤 SUBMIT PROOF</button>
         </div>
     </div>
 
     <script>
-        function toggleAds() {
-            var x = document.getElementById("adsContainer");
-            if (x.style.display === "none") {
-                x.style.display = "block";
-            } else {
-                x.style.display = "none";
-            }
+        function showAds() {
+            var section = document.getElementById("adsSection");
+            section.style.display = "block"; // Makes the ads appear
+            window.scrollTo({ top: section.offsetTop, behavior: 'smooth' });
         }
 
-        function copyText(id) {
-            navigator.clipboard.writeText(document.getElementById(id).innerText);
-            alert("Caption Copied! Now post it on your WhatsApp.");
+        function copyAd(id) {
+            const text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text);
+            alert("Caption Copied! Post it to your status.");
         }
-        
+
         window.Telegram.WebApp.ready();
         window.Telegram.WebApp.expand();
     </script>
 </body>
 </html>
+
