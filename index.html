@@ -3,24 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neshi Rewards - @Neshi1013bot</title>
+    <title>Neshi Rewards</title>
+
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
     <script src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"></script>
     
     <script>
-        window.TelegramAdsController = new TelegramAdsController();
-        window.TelegramAdsController.initialize({
-            pubId: "1001227",
-            appId: "6034",
-        });
+      window.TelegramAdsController = new TelegramAdsController();
+      window.TelegramAdsController.initialize({
+        pubId: "1001227",
+        appId: "6038",
+      });
     </script>
 
     <style>
-        body { font-family: sans-serif; text-align: center; background: #f0f2f5; padding-top: 50px; }
-        .reward-box { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); display: inline-block; width: 80%; }
-        .btn-play { background: #0088cc; color: white; border: none; padding: 15px 25px; border-radius: 8px; font-size: 1.1rem; cursor: pointer; transition: 0.3s; }
-        .btn-play:active { transform: scale(0.95); }
-        #status { margin-top: 15px; font-size: 0.9rem; color: #555; }
+      body { font-family: sans-serif; text-align: center; background: #f0f2f5; padding-top: 50px; }
+      .reward-box { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); display: inline-block; width: 85%; }
+      .btn-play { background: #0088cc; color: white; border: none; padding: 15px 30px; border-radius: 8px; font-size: 1.2rem; cursor: pointer; }
+      #status { margin-top: 15px; color: #555; font-size: 0.9rem; }
     </style>
 </head>
 <body>
@@ -29,31 +30,33 @@
         <h2>💰 Neshi Rewards</h2>
         <p>Watch a short video to claim your reward!</p>
         
-        <button class="btn-play" onclick="playVideoAd()">▶ Watch Video</button>
+        <button class="btn-play" onclick="showMyAd()">▶ Watch Video</button>
         
-        <div id="status">Status: Waiting</div>
+        <div id="status">Ready</div>
     </div>
 
     <script>
-        function playVideoAd() {
+        function showMyAd() {
             const statusDiv = document.getElementById('status');
             statusDiv.innerText = "Connecting to server...";
 
-            // 5. THE PLAYBACK TAG: Tells RichAds to show the video
             window.TelegramAdsController.playAd((result) => {
                 if (result === 'completed') {
                     statusDiv.innerText = "✅ Reward Earned!";
-                    alert("Success! You watched the full ad.");
+                    alert("Success! You earned your reward.");
                 } else {
-                    statusDiv.innerText = "❌ Video skipped or failed.";
-                    alert("You must finish the video to get the reward.");
+                    statusDiv.innerText = "❌ Video not finished.";
                 }
             });
         }
+        
+        // Tells Telegram the app is ready to display
+        Telegram.WebApp.ready();
     </script>
 
 </body>
 </html>
+
 
 
 
